@@ -1,0 +1,77 @@
+// -------------- apenas para visualização --------------
+
+
+use db_POOtrabalho; 
+
+create table tbl_marca (
+	id int not null primary key auto_increment,
+    nome varchar(200) not null
+);
+
+create table tbl_carro(
+	id int not null primary key auto_increment,
+	id_marca int not null,
+    modelo varchar(200) not null,
+    ano_fab int not null,
+    cor varchar(100) not null,
+    preco decimal(10,2) not null,
+    quilometragem float not null,
+    stt_disp boolean default TRUE,
+    
+    foreign key(id_marca) references tbl_marca(id) 
+);
+
+create table tbl_moto(
+	id int not null primary key auto_increment,
+	id_marca int not null,
+    modelo varchar(200) not null,
+    ano_fab int not null,
+    cor varchar(100) not null,
+    preco decimal(10,2) not null,
+    quilometragem float not null,
+    stt_disp boolean default TRUE,
+    
+    foreign key(id_marca) references tbl_marca(id) 
+);
+
+insert into tbl_marca (nome) values ('Ferrari');
+insert into tbl_marca (nome) values ('Nissan');
+insert into tbl_marca (nome) values ('Honda');
+
+insert into tbl_carro (modelo, id_marca, ano_fab, cor, preco, quilometragem, stt_disp)
+values ('F40', 1, 1987, 'Vermelho', 24000000.00, 0, true);
+insert into tbl_carro (modelo, id_marca, ano_fab, cor, preco, quilometragem, stt_disp)
+values ('GT-R_R34', 2, 1998, 'Azul', 2000000.00, 0, true);
+insert into tbl_moto (modelo, id_marca, ano_fab, cor, preco, quilometragem, stt_disp)
+values ('XRE_300', 3, 2026, 'Preto', 30000.00, 0, true);
+
+show tables;
+select * from tbl_marca;
+select * from tbl_carro;
+select * from tbl_moto;
+
+---------------------------------------------------
+
+SELECT 
+    c.id, 
+    m.nome AS marca, 
+    c.modelo, 
+    c.ano_fab, 
+    c.cor, 
+    c.preco, 
+    c.stt_disp
+FROM tbl_carro c
+INNER JOIN tbl_marca m ON c.id_marca = m.id;
+
+---------------------------------------------------
+
+SELECT 
+    c.id, 
+    m.nome AS marca, 
+    c.modelo, 
+    c.ano_fab, 
+    c.cor, 
+    c.preco, 
+    c.stt_disp
+FROM tbl_moto c
+INNER JOIN tbl_marca m ON c.id_marca = m.id;
